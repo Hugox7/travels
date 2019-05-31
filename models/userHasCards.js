@@ -3,7 +3,7 @@ const { Model } = require('./_connection');
 class UserHasCards extends Model {
 
     static get tableName() {
-        return 'spendings';
+        return 'userHasCards';
     }
 
     static get idColumn() {
