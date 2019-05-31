@@ -6,6 +6,7 @@ const apiRouter = express.Router();
 const api = {
     travels: require('./travels'),
     spendings: require('./spendings'),
+    spendingTypes: require('./spendingTypes'),
 }
 
 apiRouter.get('/', (req, res) => {
@@ -29,5 +30,14 @@ apiRouter.get('/spendings',         api.spendings.list);
 apiRouter.get('/spendings/:id',     api.spendings.read);
 apiRouter.post('/spendings',        api.spendings.create);
 apiRouter.patch('/spendings/:id',   api.spendings.update);
+
+//------------
+// SpendingTypes
+//------------
+
+apiRouter.get('/types',             api.spendingTypes.list);
+apiRouter.get('/types/:id',         api.spendingTypes.read);
+apiRouter.post('/types',            api.spendingTypes.create);
+apiRouter.patch('/types/:id',       api.spendingTypes.update);
 
 module.exports = apiRouter;
