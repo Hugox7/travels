@@ -38,9 +38,9 @@ const read = async (req, res) => {
 
 const create = async (req, res) => {
 
-    const { name, price, comment, file, paid, idUser, idTravel, idSpendingType } = req.body;
+    const { name, price, comment, file, paid, idUser, idTravel, date, idSpendingType } = req.body;
 
-    if (!name || !price || !paid || !idUser || !idTravel || !idSpendingType) {
+    if (!name || !price || !paid || !idUser || !idTravel || !idSpendingType || !date) {
         return res.status(400).send('Missing parameters');
     }
 
@@ -52,7 +52,8 @@ const create = async (req, res) => {
                 price: parseFloat(price),
                 comment,
                 file,
-                paid: parseFloat(paid),
+                paid: parseInt(paid),
+                date,
                 idUser,
                 idTravel,
                 idSpendingType,
@@ -68,7 +69,7 @@ const create = async (req, res) => {
 
 const update = async (req, res) => {
 
-    const { name, price, comment, file, paid, idUser, idTravel, idSpendingType } = req.body;
+    const { name, price, comment, file, paid, idUser, idTravel, idSpendingType, date } = req.body;
     const { id } = req.params;
 
     try {
@@ -76,10 +77,11 @@ const update = async (req, res) => {
             .query()
             .patch({
                 name,
-                price,
+                price: parseFloat(price),
                 comment,
                 file,
-                paid,
+                paid: parseInt(paid),
+                date,
                 idUser,
                 idTravel,
                 idSpendingType,

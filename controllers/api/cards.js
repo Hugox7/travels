@@ -1,15 +1,17 @@
-const SpendingTypes = require('../../models/spendingTypes');
+const Cards = require('../../models/cards');
 
 const list = async (req, res) => {
 
     try {
-        const spendingTypes = await SpendingTypes
+        const cards = await Cards
             .query();
 
-        return res.status(200).send(spendingTypes);
+        return res.status(200).send(cards);
+
     } catch (error) {
         return res.status(500).send(error);
     }
+
 }
 
 const read = async (req, res) => {
@@ -17,15 +19,16 @@ const read = async (req, res) => {
     const { id } = req.params;
 
     try {
-        const spendingType = await SpendingTypes
+
+        const card = await Cards    
             .query()
             .findById(id)
             .first();
-        
-        if (spendingType) {
-            return res.status(200).send(spendingType);
+
+        if (!card) {
+            return res.status(404).send('Card not found');
         } else {
-            return res.status(404).send("spendingType not found");
+            return res.status(200).send(card);
         }
 
     } catch (error) {
@@ -36,49 +39,52 @@ const read = async (req, res) => {
 
 const create = async (req, res) => {
 
-    const { name } = req.body;
+    const name = req.body.name;
 
     if (!name) {
         return res.status(400).send('Missing parameter');
     }
 
     try {
-        const spendingType = await SpendingTypes
+
+        const card = await Cards
             .query()
             .insert({
                 name,
             });
+        
+        return res.status(201).send(card);
 
-        return res.status(201).send(spendingType);
     } catch (error) {
         return res.status(500).send(error);
     }
+
 }
 
 const update = async (req, res) => {
-    const { name } = req.body;
-    const { id } = req.params;
 
-    if (!name) {
-        return res.status(400).send('Missing parameter');
-    }
+    const { id } = req.params;
+    const { name } = req.body;
 
     try {
-        const spendingType = await SpendingTypes
+
+        const card = await Cards
             .query()
             .patch({
                 name,
             })
             .where('id', '=', id);
-    
-        if (spendingType) {
-            return res.status(201).send(spendingType);
+
+        if (card) {
+            return res.status(201).send(card);
         } else {
-            return res.status(404).send('spendingType not found');
+            return res.status(404).send('Card not found');
         }
+
     } catch (error) {
         return res.status(500).send(error);
-    }    
+    }
+
 }
 
 module.exports = {

@@ -16,7 +16,8 @@ exports.up = function(knex, Promise) {
             t.float('price').notNullable();
             t.string('comment').nullable();
             t.string('file').nullable();
-            t.float('paid').notNullable();
+            t.integer('paid').notNullable();
+            t.string('date').notNullable();
             t.integer('idTravel').unsigned().notNullable().references('id').inTable('travels');
             t.integer('idUser').unsigned().notNullable().references('id').inTable('users');
             t.integer('idSpendingType').unsigned().notNullable().references('id').inTable('spendingTypes');
