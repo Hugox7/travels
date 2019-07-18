@@ -28,7 +28,10 @@ exports.up = function(knex, Promise) {
         }),
         knex.schema.createTable('users', (t) => {
             t.increments('id').primary();
-            t.string('name').notNullable();
+            t.string('firstName').notNullable();
+            t.string('lastName').notNullable();
+            t.string('password').notNullable();
+            t.string('email').notNullable();
         }),
         knex.schema.createTable('cards', (t) => {
             t.increments('id').primary();

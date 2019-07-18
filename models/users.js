@@ -19,7 +19,10 @@ class Users extends Model {
 
             properties: {
                 id:             { type: 'integer' },
-                name:           { type: 'string' },
+                firstName:      { type: 'string' },
+                lastName:       { type: 'string' },
+                email:          { type: 'string' },
+                password:       { type: 'string' },
             }
         }
     }
